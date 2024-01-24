@@ -1,6 +1,8 @@
 import pandas as pd
+from urllib.request import urlretrieve
 
-covid_data = pd.read_csv("./panda/italy_covid_data.csv")
+urlretrieve("https://gist.githubusercontent.com/aakashns/f6a004fa20c84fec53262f9a8bfee775/raw/f309558b1cf5103424cef58e2ecb8704dcd4d74c/italy-covid-daywise.csv","./Covid_Analysis/italy_covid_data.csv")
+covid_data = pd.read_csv("./Covid_Analysis/italy_covid_data.csv")
 
 
 def sum_death():
