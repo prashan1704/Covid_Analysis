@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
 import pandas as pd
 from urllib.request import urlretrieve
 
@@ -98,7 +101,7 @@ while itr:
       4. Maximum Death, Maximum Cases and Maximum Test as per date
       5. Minimum Death, Minimum Cases and Minimum Test as per date
       6. Check the data as per Month 
-      7. 
+      7.
 """
     )
     entry = int(input("Enter your choice: "))
