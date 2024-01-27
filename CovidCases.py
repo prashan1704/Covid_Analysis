@@ -91,6 +91,12 @@ def data_by_day(value, weekday):
     return covid_data_day_metric.sum()
 
 
+def print_charts(covid_data):
+    covid_data_date=convert_to_date(covid_data)
+    
+
+
+
 itr = True
 while itr:
     print(
@@ -101,7 +107,7 @@ while itr:
       4. Maximum Death, Maximum Cases and Maximum Test as per date
       5. Minimum Death, Minimum Cases and Minimum Test as per date
       6. Check the data as per Month 
-      7.
+      7. See the visualization reports
 """
     )
     entry = int(input("Enter your choice: "))
@@ -172,5 +178,4 @@ while itr:
             break
 
     elif entry == 7:
-        print("You have chose to Exit. Thank you")
-        itr = False
+        print_charts(covid_data)
