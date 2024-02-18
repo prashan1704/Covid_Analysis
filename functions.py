@@ -34,13 +34,17 @@ class perform:
             return self.covid_data.date.loc[value]
         elif choice == "c":
             max_case = self.covid_data.new_cases.max()
-            index = self.covid_data.index[self.covid_data["new_cases"] == max_case].tolist()
+            index = self.covid_data.index[
+                self.covid_data["new_cases"] == max_case
+            ].tolist()
             value = index[0]
             return self.covid_data.date.loc[value]
 
         elif choice == "t":
             max_test = self.covid_data.new_tests.max()
-            index = self.covid_data.index[covid_data["new_tests"] == max_test].tolist()
+            index = self.covid_data.index[
+                self.covid_data["new_tests"] == max_test
+            ].tolist()
             value = index[0]
             return self.covid_data.date.loc[value]
 
@@ -48,19 +52,49 @@ class perform:
         choice = input("Enter D for death, C for cases and T for tests: ").lower()
         if choice == "d":
             min_death = self.covid_data.new_deaths.min()
-            index = self.covid_data.index[self.covid_data["new_deaths"] == min_death].tolist()
+            index = self.covid_data.index[
+                self.covid_data["new_deaths"] == min_death
+            ].tolist()
             value = index[0]
             print("*" * 10)
             return self.covid_data.date.loc[value]
 
         elif choice == "c":
             min_case = self.covid_data.new_cases.min()
-            index = self.covid_data.index[self.covid_data["new_cases"] == min_case].tolist()
+            index = self.covid_data.index[
+                self.covid_data["new_cases"] == min_case
+            ].tolist()
             value = index[0]
             return self.covid_data.date.loc[value]
 
         elif choice == "t":
             min_test = self.covid_data.new_tests.min()
-            index = self.covid_data.index[self.covid_data["new_tests"] == min_test].tolist()
+            index = self.covid_data.index[
+                self.covid_data["new_tests"] == min_test
+            ].tolist()
             value = index[0]
             return self.covid_data.date.loc[value]
+
+    def convert_to_date(self):
+        dates = pd.to_datetime(self.covid_data["date"])
+        self.covid_data["years"] = pd.DatetimeIndex(dates).year
+        self.covid_data["month"] = pd.DatetimeIndex(dates).month
+        self.covid_data["day"] = pd.DatetimeIndex(dates).day
+        self.covid_data["weekday"] = pd.DatetimeIndex(dates).weekday
+        return self.covid_data
+
+    def data_for_month(self, value):
+        covid_data_coverted = perform.convert_to_date(self)
+        covid_data_month = covid_data_coverted[covid_data_coverted["month"] == value]
+        covid_data_month_metric = covid_data_coverted[
+            ["new_cases", "new_deaths", "new_tests"]
+        ]
+        return covid_data_month_metric.sum()
+
+
+    def data_by_day(self, value, weekday):
+        covid_data_converted = perform.convert_to_date(self)
+        covid_data_month = covid_data_converted[covid_data_converted["month"] == value]
+        covid_data_day = covid_data_month[covid_data_month["weekday"] == weekday]
+        covid_data_day_metric = covid_data_day[["new_cases", "new_deaths", "new_tests"]]
+        return covid_data_day_metric.sum()
